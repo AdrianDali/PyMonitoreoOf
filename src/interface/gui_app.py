@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
+#from ..model.usuario import DBUsuario
 # env\Scripts\activate
 
 def barra_menu(root):
@@ -76,6 +77,7 @@ class Frame(tk.Frame):
         self.entry_fecha.config(width= 50,font=('Arial', 12) )
         self.entry_fecha.grid(row = 2, column = 1, padx=10, pady=10    , columnspan= 2)
 
+
         self.combo_pieza = ttk.Combobox(self, values = ('Pelicula 1', 'Pelicula 2', 'Pelicula 3'))
         self.combo_pieza.config(width= 50,font=('Arial', 12) )
         self.combo_pieza.grid(row = 3, column = 1, padx=10, pady=10, columnspan= 2)
@@ -86,7 +88,7 @@ class Frame(tk.Frame):
 
         self.mi_genero = tk.StringVar()
         self.text_observaciones = tk.Text(self)
-        self.text_observaciones.config(width= 50,height= 10 ,font=('Arial', 12) )
+        self.text_observaciones.config(width= 50,height= 5 ,font=('Arial', 12) )
         self.text_observaciones.grid(row = 5, column = 1, padx=10, pady=10    , columnspan= 2)
 
 

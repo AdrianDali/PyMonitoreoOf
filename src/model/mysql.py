@@ -12,7 +12,7 @@ class DataBase:
             )
         self.cursor = self.connection.cursor()
         print('Conexion exitosa')
-        return self.cursor
+       
 
     
 
