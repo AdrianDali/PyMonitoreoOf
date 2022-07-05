@@ -1,6 +1,6 @@
 from mysql import DataBase
 
-class DBMaquina():
+class DBProceso():
     def __init__(self, id):
         self.connection = DataBase().connection
         self.cursor = self.connection.cursor()

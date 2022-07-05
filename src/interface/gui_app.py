@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-#from ..model.usuario import DBUsuario
+#from model.usuario import DBUsuario
 # env\Scripts\activate
 
 def barra_menu(root):
