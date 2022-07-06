@@ -1,4 +1,32 @@
-from mysql import DataBase
+from DBmysql import DataBase
+
+def select_name_piezas():
+        sql = 'SELECT nombre_pieza from pieza '
+        try:
+            connection = DataBase().connection
+            cursor = connection.cursor()
+            cursor.execute(sql)
+            piezas = cursor.fetchall()
+            lista  = []
+            for pieza in piezas:
+                lista.append(pieza[0])
+            return lista
+        except Exception as e:
+            print(e)
+            raise
+
+
+def select_id_pieza(nombre):
+    sql = 'SELECT id_pieza from pieza where nombre_pieza = "{}"'.format(nombre)
+    try:
+        connection = DataBase().connection
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        id_pieza = cursor.fetchone()
+        return id_pieza[0]
+    except Exception as e: 
+        print(e)
+        raise
 
 class DBPieza():
     def __init__(self, id):
@@ -28,19 +56,8 @@ class DBPieza():
             raise
             
 
-    def select_name_piezas(self):
-        sql = 'SELECT nombre_pieza from pieza '
-        try:
-            self.cursor.execute(sql)
-            piezas = self.cursor.fetchall()
-            lista  = []
-            for pieza in piezas:
-                lista.append(pieza[0])
-            return lista
-        except Exception as e:
-            print(e)
-            raise
+    
 
-maquina  = DBPieza(1)
-list = maquina.select_name_piezas()
-print(list)
+#maquina  = DBPieza(1)
+#list = maquina.select_name_piezas()
+#print(list)

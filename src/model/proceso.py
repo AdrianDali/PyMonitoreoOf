@@ -1,17 +1,39 @@
-from mysql import DataBase
+from cmath import e
+from DBmysql import DataBase
+import numpy as np
+
+def select_procesos_unfinish():
+        sql = 'SELECT p.id_proceso, u.nombre,p.nombre, m.nombre_maquina, i.nombre_pieza, p.hora_inicio,p.numero_piezas,p.peso_merma,p.observaciones FROM proceso as p join maquina as m on m.id_maquina = p.id_maquina join pieza as i on p.id_pieza = i.id_pieza join proceso_usuario as pu on p.id_proceso = pu.id_proceso join usuarios as u on u.id_usuario = pu.id_usuario where p.proceso_terminado = 1'
+        try:
+            connection = DataBase().connection
+            cursor = connection.cursor()
+            cursor.execute(sql)
+            procesos = cursor.fetchall()
+            return procesos
+        
+        except Exception as e:
+            print(e)
+            raise
 
 class DBProceso():
-    def __init__(self, id):
+    def __init__(self, id_maquina,id_pieza, nombre, hora_inicio, observaciones ):
         self.connection = DataBase().connection
         self.cursor = self.connection.cursor()
-        maquina = self.select_maquina(id)
-        self.id_maquina = maquina[0]
-        self.nombre_maquina = maquina[1]
-        self.disponible = maquina[2]
-        print('id: ', self.id_maquina)
-        print('nombre: ', self.nombre_maquina)
-        print('disponible: ', self.disponible)
-        print('\n')
+        sql = 'INSERT INTO proceso(id_maquina,id_pieza,nombre,hora_inicio,observaciones)VALUES({},{},"{}","{}","{}")'.format(id_maquina,id_pieza,nombre,hora_inicio,observaciones)
+        try :
+            self.cursor.execute(sql)
+            self.connection.commit()
+            print("logrado") 
+        except Exception as e:
+            print(e)
+            raise
+
+        self.id_maquina = id_maquina 
+        self.id_pieza = id_pieza
+        self.nombre_proceso = nombre
+        self.hora_inicio = hora_inicio
+        self.observaciones = observaciones
+
 
 
 
@@ -41,6 +63,10 @@ class DBProceso():
             print(e)
             raise
 
-maquina  = DBMaquina(1)
-list = maquina.select_name_maquinas_enabled()
-print(list)
+#maquina  = DBMaquina(1)
+#list = maquina.select_name_maquinas_enabled()
+#print(list)
+
+
+
+

@@ -1,5 +1,32 @@
 
-from mysql import DataBase
+from DBmysql import DataBase
+
+def select_name_maquinas_enabled():
+        sql = 'SELECT nombre_maquina from maquina where disponible = 1 '
+        try:
+            connection = DataBase().connection
+            cursor = connection.cursor()
+            cursor.execute(sql)
+            maquinas = cursor.fetchall()
+            lista  = []
+            for maquina in maquinas:
+                lista.append(maquina[0])
+            return lista
+        except Exception as e:
+            print(e)
+            raise
+    
+def select_id_maquina(nombre):
+    sql = 'SELECT id_maquina from maquina where nombre_maquina = "{}"'.format(nombre)
+    try:
+        connection = DataBase().connection
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        id_maquina = cursor.fetchone()
+        return id_maquina[0]
+    except Exception as e: 
+        print(e)
+        raise
 
 class DBMaquina():
     def __init__(self, id):
@@ -29,19 +56,8 @@ class DBMaquina():
             raise
             
 
-    def select_name_maquinas_enabled(self):
-        sql = 'SELECT nombre_maquina from maquina where disponible = 1 '
-        try:
-            self.cursor.execute(sql)
-            maquinas = self.cursor.fetchall()
-            lista  = []
-            for maquina in maquinas:
-                lista.append(maquina[0])
-            return lista
-        except Exception as e:
-            print(e)
-            raise
+    
 
-maquina  = DBMaquina(1)
-list = maquina.select_name_maquinas_enabled()
-print(list)
+#maquina  = DBMaquina(1)
+#list = maquina.select_name_maquinas_enabled()
+#print(list)

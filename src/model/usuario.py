@@ -1,5 +1,21 @@
+print('USEEERRRR')
+from DBmysql import DataBase
 
-from mysql import DataBase
+
+def select_name_usuario_enabled():
+        sql = 'SELECT nombre from usuarios where disponible = 1 '
+        try:
+            connection = DataBase().connection
+            cursor = connection.cursor()
+            cursor.execute(sql)
+            maquinas = cursor.fetchall()
+            lista  = []
+            for maquina in maquinas:
+                lista.append(maquina[0])
+            return lista
+        except Exception as e:
+            print(e)
+            raise
 
 class DBUsuario():
     def __init__(self, id):
@@ -23,25 +39,17 @@ class DBUsuario():
             self.cursor.execute(sql)
             usuario = self.cursor.fetchone()
             objeto_usuario = [usuario[0],usuario[1],usuario[2]]
+            print(objeto_usuario)
             return objeto_usuario
         except Exception as e:
             print(e)
             raise
             
 
-    def select_name_usuario_enabled(self):
-        sql = 'SELECT nombre from usuarios where disponible = 1 '
-        try:
-            self.cursor.execute(sql)
-            usuarios = self.cursor.fetchall()
-            lista  = []
-            for usuario in usuarios:
-                lista.append(usuario[0])
-            return lista
-        except Exception as e:
-            print(e)
-            raise
+    
 
 #usuario  = DBUsuario(2)
 #list = usuario.select_name_usuario_enabled()
 #print(list)
+
+
