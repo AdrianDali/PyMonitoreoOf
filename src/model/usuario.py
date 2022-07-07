@@ -17,6 +17,22 @@ def select_name_usuario_enabled():
             print(e)
             raise
 
+def select_id_usuario(usuario):
+    sql = 'SELECT id_usuario from usuarios where nombre = "{}" '.format(usuario)
+    objeto_usuario = []
+    try: 
+        connection = DataBase().connection
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        usuario = cursor.fetchone()
+        user = usuario[0]
+        print(user)
+        return user
+    except Exception as e:
+        print(e)
+        raise
+
+
 class DBUsuario():
     def __init__(self, id):
         self.connection = DataBase().connection

@@ -3,7 +3,7 @@ from DBmysql import DataBase
 import numpy as np
 
 def select_procesos_unfinish():
-        sql = 'SELECT p.id_proceso, u.nombre,p.nombre, m.nombre_maquina, i.nombre_pieza, p.hora_inicio,p.numero_piezas,p.peso_merma,p.observaciones FROM proceso as p join maquina as m on m.id_maquina = p.id_maquina join pieza as i on p.id_pieza = i.id_pieza join proceso_usuario as pu on p.id_proceso = pu.id_proceso join usuarios as u on u.id_usuario = pu.id_usuario where p.proceso_terminado = 1'
+        sql = 'SELECT p.id_proceso, u.nombre as nombre_usuario,p.nombre, m.nombre_maquina, i.nombre_pieza, p.hora_inicio,p.numero_piezas , p.peso_merma,p.observaciones FROM proceso as p join maquina as m on m.id_maquina = p.id_maquina  join pieza as i on p.id_pieza = i.id_pieza join usuarios as u on u.id_usuario = p.id_nombre  where p.proceso_terminado = 1;'
         try:
             connection = DataBase().connection
             cursor = connection.cursor()
@@ -16,10 +16,11 @@ def select_procesos_unfinish():
             raise
 
 class DBProceso():
-    def __init__(self, id_maquina,id_pieza, nombre, hora_inicio, observaciones ):
+    def __init__(self, id_maquina,id_pieza,id_nombre , nombre, hora_inicio, observaciones ):
         self.connection = DataBase().connection
         self.cursor = self.connection.cursor()
-        sql = 'INSERT INTO proceso(id_maquina,id_pieza,nombre,hora_inicio,observaciones)VALUES({},{},"{}","{}","{}")'.format(id_maquina,id_pieza,nombre,hora_inicio,observaciones)
+        id_nombre = int(id_nombre)
+        sql = 'INSERT INTO proceso(id_maquina,id_pieza,id_nombre ,nombre,hora_inicio,observaciones)VALUES({},{},{},"{}","{}","{}")'.format(id_maquina,id_pieza,id_nombre,nombre,hora_inicio,observaciones)
         try :
             self.cursor.execute(sql)
             self.connection.commit()

@@ -3,7 +3,7 @@ from tkinter import ttk
 import datetime
 
 #from tomlkit import value
-from usuario import select_name_usuario_enabled
+from usuario import select_name_usuario_enabled, select_id_usuario
 from pieza import select_name_piezas, select_id_pieza
 from maquina import select_name_maquinas_enabled , select_id_maquina
 from proceso import DBProceso, select_procesos_unfinish
@@ -179,6 +179,9 @@ class Frame(tk.Frame):
         
         nombre = self.combo_nombre.get()
         print(nombre)
+        id_usuario = select_id_usuario(nombre)
+        print("usuario:   ")
+        print(id_usuario)
         pieza = self.combo_pieza.get()
         print(pieza)
         maquina = self.combo_maquina.get()
@@ -191,7 +194,7 @@ class Frame(tk.Frame):
         print(nombre_proceso)
         id_maquina = select_id_maquina(maquina)
         id_pieza = select_id_pieza(pieza)
-        DBProceso(id_maquina, id_pieza, nombre_proceso, fecha_completa,  observaciones )
+        DBProceso(id_maquina, id_pieza,id_usuario, nombre_proceso, fecha_completa,  observaciones )
         self.tabla_peliculas();
         self.deshabilitar_campos()
 
